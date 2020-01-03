@@ -7,7 +7,7 @@
  */
 export function* characterGenerator(allowedTypes, maxLevel) {
   // TODO: write logic here
-  while (true){
+  while(true){
     const indexCharacter = Math.floor(Math.random() * allowedTypes.length);
     const levelCharacter = Math.floor((Math.random() * maxLevel) + 1);
     yield new allowedTypes[indexCharacter](levelCharacter);

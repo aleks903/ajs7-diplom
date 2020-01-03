@@ -1,9 +1,8 @@
 import Character from '../Character';
 
 export default class Swordsman extends Character {
-  construcor(level) {
+  constructor(level) {
     super(level);
-    this.level = level;
     this.type = 'swordsman';
     this.attack = 40;
     this.defence = 10;
