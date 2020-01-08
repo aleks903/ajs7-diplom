@@ -2,14 +2,12 @@ import themese from './themes';
 import {generateTeam} from './generators';
 import {userTeam, enemyTeam} from './characters/arrCharacter';
 import PositionedCharacter from './PositionedCharacter';
+import showInfoCharacter from './characters/showInfoCharacter';
+import GamePlay from './GamePlay';
 
 const positionCharacter = [];
-const icons = {
-  level: '\u{1F396}',
-  attack: '\u{2694}',
-  defence: '\u{1F6E1}',
-  health: '\u{2764}',
-};
+let selectedCharacter = 0;
+
 export default class GameController {
   constructor(gamePlay, stateService) {
     this.gamePlay = gamePlay;
@@ -23,7 +21,7 @@ export default class GameController {
     const enemyTeams = generateTeam(enemyTeam, 1, 2);
 
     this.gamePlay.drawUi(themese.prairie);
-    this.displayInfo();
+    this.mouseEvents();
 
     for(let i = 0; i < userTeam.length - 1; i += 1) {
       userPosition = (Math.floor(Math.random() * 8) * 8) + (Math.floor(Math.random() * 2));
@@ -32,31 +30,42 @@ export default class GameController {
       positionCharacter.push(new PositionedCharacter(enemyTeams[i], enemyPosition));
     }
     this.gamePlay.redrawPositions(positionCharacter);
-console.log(positionCharacter);
+//console.log(positionCharacter);
     // TODO: add event listeners to gamePlay events
     // TODO: load saved stated from stateService
   }
 
-  displayInfo() {
+  mouseEvents() {
     this.gamePlay.addCellEnterListener(this.onCellEnter.bind(this));
+    this.gamePlay.addCellLeaveListener(this.onCellLeave.bind(this));
+    this.gamePlay.addCellClickListener(this.onCellClick.bind(this));
   }
 
   onCellClick(index) {
     // TODO: react to click
-    //console.log(index);
+    // console.log(index);
+    for (const item of positionCharacter) {
+      if(item.position === index) {
+        const inTeamUser = userTeam.findIndex(items => items.name === item.character.constructor.name);
+        if(inTeamUser === -1) {
+          GamePlay.showError('Не ваш персонаж!');
+        } else {
+          this.gamePlay.deselectCell(selectedCharacter);
+          this.gamePlay.selectCell(index);
+          selectedCharacter = index;
+        }
+        //this.gamePlay.showCellTooltip(showInfoCharacter(item.character), index);
+      }
+    }
   }
 
   onCellEnter(index) {
     // TODO: react to mouse enter
     for (const item of positionCharacter) {
-      // console.log(item);
       if(item.position === index) {
-        const messageTooltip = `${icons.level}${item.character.level}${icons.attack}${item.character.attack}${icons.defence}${item.character.defence}${icons.health}${item.character.health}`;
-        console.log(messageTooltip);
-        this.gamePlay.showCellTooltip(messageTooltip, index);
+        this.gamePlay.showCellTooltip(showInfoCharacter(item.character), index);
       }
     }
-    // console.log(index);
   }
 
   onCellLeave(index) {
