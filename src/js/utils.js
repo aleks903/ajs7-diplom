@@ -1,6 +1,6 @@
 export function calcTileType(index, boardSize) {
   // TODO: write logic here
-  console.log(index%boardSize);
+  //console.log(index%boardSize);
   let bordersIndexR = 0;
   let bordersIndexC = 0;
   let itemRow = Math.floor(index/boardSize);
