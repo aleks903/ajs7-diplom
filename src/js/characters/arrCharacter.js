@@ -8,5 +8,6 @@ import Vampire from './Vampire';
 export const arrCharacter = [Bowman, Swordsman, Magician, Daemon, Undead, Vampire];
 
 export const userTeam = [Bowman, Swordsman, Magician];
+export const userTeamLevel1 = [Bowman, Swordsman];
 
 export const enemyTeam = [Daemon, Undead, Vampire];

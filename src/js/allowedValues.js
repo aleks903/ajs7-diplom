@@ -1,4 +1,4 @@
-export default function allowedValues(position, distance, boardSize) {
+export function allowedValues(position, distance, boardSize) {
   const allowValues = [];
   let itemRow = Math.floor(position/boardSize);
   let itemColumn = position % boardSize;
@@ -12,6 +12,25 @@ export default function allowedValues(position, distance, boardSize) {
     if ((itemRow - i) >= 0 && (itemColumn - i) >= 0) allowValues.push(((itemRow - i) * 8) + (itemColumn - i));
     if ((itemRow + i) < 8 && (itemColumn - i) >= 0) allowValues.push(((itemRow + i) * 8) + (itemColumn - i));
     if ((itemRow - i) >= 0 && (itemColumn + i) < 8) allowValues.push(((itemRow - i) * 8) + (itemColumn + i));
+  }
+  return allowValues;
+}
+
+export function allowedValuesAttack(position, distance, boardSize) {
+  const allowValues = [];
+  let itemRow = Math.floor(position/boardSize);
+  let itemColumn = position % boardSize;
+  let columnStart, rowStart, columnEnd, rowEnd;
+
+  columnStart = (itemColumn - distance) > 0 ? itemColumn - distance : 0;
+  columnEnd = (itemColumn + distance) < 7 ? itemColumn + distance : 7;
+  rowStart = (itemRow - distance) > 0 ? itemRow - distance : 0;
+  rowEnd = (itemRow + distance) < 7 ? itemRow + distance : 7;
+
+  for (let i = columnStart; i <= columnEnd; i += 1){
+    for (let j = rowStart; j <= rowEnd; j += 1){
+      allowValues.push((j * 8) + i);
+    }
   }
   return allowValues;
 }
