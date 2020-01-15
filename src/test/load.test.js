@@ -1,12 +1,27 @@
-import GamePlay from '../js/GamePlay';
-import GameController from '../js/GameController';
+// import GamePlay from '../js/GamePlay';
+// import GameController from '../js/GameController';
+//import '../js/app';
 import GameStateService from '../js/GameStateService';
 
-const gamePlay = new GamePlay();
-gamePlay.bindToDOM(document.querySelector('#game-container'));
+// const mockLoad = jest.fn();
+// jest.mock('../js/GameStateService', () => {
+//   return jest.fn().mockImplementation(() => {
+//     return {load: mockLoad};
+//   });
+// });
+
+// const gamePlay = new GamePlay();
 const stateService = new GameStateService(localStorage);
-const gameController = new GameController(gamePlay, stateService);
-jest.mock('../js/GameStateService', function() {jest.fn();});
+// const gameCtrl = new GameController(gamePlay, stateService);
+
+//jest.mock('../js/GameStateService');
+
+jest.mock('../js/GameStateService', () => {
+  return () => {
+    //default: jest.fn(() => 412),
+    return {load: jest.fn(() => 42)}
+  };
+});
 
 const state = {
   point: 10,
@@ -22,20 +37,19 @@ beforeEach(() => {
 
 test('load data', () => {
 
-  GameStateService.mockImplementation(() => {
-    load: () => {return state;};
-  });
-  //const retLoad = gameController.loadGame();
-  //GameStateService.mockReturnValue('state');
-  // const mockLoadInstance = GameStateService.mock.instances[0];
-  // const mockLoad = mockLoadInstance.load;
-  // mockLoad.mockReturnValue('state');
-  //const spy = jest.spyOn(GameStateService, 'load').mockImplementation(() => 'hello');
   
-  const expected = '{"level": 1, "turn": "user", "user": {"attack": 10, "defence": 40, "distance": 1, "health": 50}, "score": 30}';
-  //gameController.loadGame();
-  expect(gameController.loadGame()).toBe(1);
-  //spy.mockRestore();
+  //GameStateService.load.mockReturnValue('test');
+  //gameCtrl.loadGame();
+  // mMock.mock.calls
+  //stateService.load();
+  //GameStateService.mock.instances[0].load.mock.calls;
+
+
+  //stateService.load()
+  expect(stateService.load()).toBe(4);
+
+  //expect(GameStateService.mock.instances[0].load).toHaveBeenCalledTimes(2);
+  // expect(gameCtrl.loadGame()).toBe('4');
 });
 
 // test('load error', () => {
