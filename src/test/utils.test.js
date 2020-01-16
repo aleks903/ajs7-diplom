@@ -1,4 +1,4 @@
-import {calcTileType} from '../js/utils';
+import { calcTileType } from '../js/utils.js';
 
 test('Проверка отрисовки границ', () => {
   // let recived = calcTileType(5, 8);

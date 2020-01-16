@@ -1,9 +1,9 @@
-import Bowman from './Bowman';
-import Swordsman from './Swordsman';
-import Daemon from './Daemon';
-import Magician from './Magician';
-import Undead from './Undead';
-import Vampire from './Vampire';
+import Bowman from './Bowman.js';
+import Swordsman from './Swordsman.js';
+import Daemon from './Daemon.js';
+import Magician from './Magician.js';
+import Undead from './Undead.js';
+import Vampire from './Vampire.js';
 
 export const arrCharacter = [Bowman, Swordsman, Magician, Daemon, Undead, Vampire];
 

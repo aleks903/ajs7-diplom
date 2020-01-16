@@ -1,4 +1,4 @@
-import {allowedValues, allowedValuesAttack} from '../js/allowedValues';
+import { allowedValues, allowedValuesAttack } from '../js/allowedValues.js';
 
 
 test('Допустимые ячейки хода', () => {

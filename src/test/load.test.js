@@ -1,61 +1,29 @@
-// import GamePlay from '../js/GamePlay';
-// import GameController from '../js/GameController';
-//import '../js/app';
-import GameStateService from '../js/GameStateService';
+// import GamePlay from '../js/GamePlay.js';
+// import GameController from '../js/GameController.js';
+import GameStateService from '../js/mockGameStateService.js';
+import tempData from '../js/tempDataForMockGss.js';
 
-// const mockLoad = jest.fn();
-// jest.mock('../js/GameStateService', () => {
-//   return jest.fn().mockImplementation(() => {
-//     return {load: mockLoad};
-//   });
-// });
-
-// const gamePlay = new GamePlay();
-const stateService = new GameStateService(localStorage);
-// const gameCtrl = new GameController(gamePlay, stateService);
-
-//jest.mock('../js/GameStateService');
-
-jest.mock('../js/GameStateService', () => {
-  return () => {
-    //default: jest.fn(() => 412),
-    return {load: jest.fn(() => 42)}
-  };
-});
-
-const state = {
-  point: 10,
-  maxPoint: 10,
-  level: 1,
-  currentThem: 'prairie',
-  userPositions: [],
-};
-
+jest.mock('../js/tempDataForMockGss');
 beforeEach(() => {
   jest.resetAllMocks();
 });
 
-test('load data', () => {
-
-  
-  //GameStateService.load.mockReturnValue('test');
-  //gameCtrl.loadGame();
-  // mMock.mock.calls
-  //stateService.load();
-  //GameStateService.mock.instances[0].load.mock.calls;
-
-
-  //stateService.load()
-  expect(stateService.load()).toBe(4);
-
-  //expect(GameStateService.mock.instances[0].load).toHaveBeenCalledTimes(2);
-  // expect(gameCtrl.loadGame()).toBe('4');
+test('Проверка GameSavingLoader', async () => {
+  const expected = `{"point":10,"maxPoint":10,"level":1,"currentThem":"prairie","userPositions":[]}`;
+  // const gamePlay = new GamePlay();
+  const stateService = new GameStateService(localStorage);
+  // const gameCtrl = new GameController(gamePlay, stateService);
+  tempData.mockReturnValue(expected);
+  const recived = stateService.load();
+  expect(JSON.stringify(recived)).toBe(expected);
 });
 
-// test('load error', () => {
-//   gameController.loadGame().mockRejectedValue('Invalid state');
+test('Проверка GameSavingLoader = null', async () => {
+  const expected = '';
+  const stateService = new GameStateService(localStorage);
+  tempData.mockReturnValue(expected);
 
-//   gameController.loadGame().catch((err) => {
-//     expect(err).toThrow();
-//   });
-// });
+  expect(() => {
+    stateService.load();
+  }).toThrow();
+});

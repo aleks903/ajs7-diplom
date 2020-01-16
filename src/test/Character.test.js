@@ -1,8 +1,9 @@
-import Character from '../js/Character';
+import Character from '../js/Character.js';
 
 test('Запрет создания объектов Character', () => {
-  //const recived = new Character();
-  expect(() => {new Character()}).toThrow();
+  expect(() => {
+    new Character();
+  }).toThrow();
 });
 
 test('Создание Bowman', () => {

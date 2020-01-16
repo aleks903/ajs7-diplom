@@ -1,4 +1,4 @@
-import showInfoCharacter from '../js/characters/showInfoCharacter';
+import showInfoCharacter from '../js/characters/showInfoCharacter.js';
 
 test('Проверка вывод краткого состояния Bowman', () => {
   const characters = {
