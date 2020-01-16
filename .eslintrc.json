@@ -27,8 +27,7 @@
     ],
     "linebreak-style": [
       "error",
-      //"windows"
-      "unix"
+      "windows"
     ]
   }
 }

@@ -1,8 +1,8 @@
 export function allowedValues(position, distance, boardSize) {
-  let allowValues = [];
+  const allowValues = [];
   const itemRow = Math.floor(position / boardSize);
   const itemColumn = position % boardSize;
-  
+
   for (let i = 1; i <= distance; i += 1) {
     if ((itemColumn + i) < 8) {
       allowValues.push((itemRow * 8) + (itemColumn + i));
@@ -36,10 +36,10 @@ export function allowedValuesAttack(position, distance, boardSize) {
   const allowValues = [];
   const itemRow = Math.floor(position / boardSize);
   const itemColumn = position % boardSize;
-  let columnStart;
-  let rowStart;
-  let columnEnd;
-  let rowEnd;
+  let columnStart = 0;
+  let rowStart = 0;
+  let columnEnd = 7;
+  let rowEnd = 7;
 
   columnStart = (itemColumn - distance) > 0 ? itemColumn - distance : 0;
   columnEnd = (itemColumn + distance) < 7 ? itemColumn + distance : 7;

@@ -9,7 +9,7 @@ export default class GameStateService {
     this.storage.setItem('state', JSON.stringify(state));
   }
 
-  load() {
+  static load() {
     try {
       const data = tempData();
       return JSON.parse(data);

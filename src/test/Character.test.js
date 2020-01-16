@@ -1,11 +1,5 @@
 import Character from '../js/Character.js';
 
-test('Запрет создания объектов Character', () => {
-  expect(() => {
-    new Character();
-  }).toThrow();
-});
-
 test('Создание Bowman', () => {
   class Bowman extends Character {
     constructor(level) {
@@ -30,4 +24,10 @@ test('Создание Bowman', () => {
   };
   const received = new Bowman(1);
   expect(received).toEqual(expected);
+});
+
+test('Запрет создания объектов Character', () => {
+  expect(() => {
+    new Character(); // eslint-disable-line no-new
+  }).toThrow();
 });
