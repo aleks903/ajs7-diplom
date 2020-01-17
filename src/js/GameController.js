@@ -248,7 +248,9 @@ export default class GameController {
       this.userTeams = generateTeam(userTeam, 2, 2);
       this.enemyTeams = generateTeam(enemyTeam, 3, (this.userTeams.length + userPositions.length));
       this.addPositionCharacter(this.userTeams, this.enemyTeams);
-    } else if (this.level === 4) {
+    // снято ограничение в 4 уровня
+    } else if (this.level >= 4) {
+    // } else if (this.level === 4) {
       this.currentThem = themese.mountain;
       this.userTeams = generateTeam(userTeam, 3, 2);
       this.enemyTeams = generateTeam(enemyTeam, 4, (this.userTeams.length + userPositions.length));
@@ -305,6 +307,11 @@ export default class GameController {
     this.gamePlay.redrawPositions([...userPositions, ...enemyPositions]);
   }
 
+  async enemyAttacks(character, target) {
+    await this.characterAttacker(character, target);
+    this.currentMove = 'user';
+  }
+
   enemyStrategy() {
     if (this.currentMove === 'enemy') {
       // attack
@@ -315,8 +322,7 @@ export default class GameController {
         const allowAttack = allowedValuesAttack(allowPosition, allowDistance, boardSize);
         const target = this.enemyAttack(allowAttack);
         if (target !== null) {
-          this.characterAttacker(itemEnemy.character, target);
-          this.currentMove = 'user';
+          this.enemyAttacks(itemEnemy.character, target);
           return;
         }
       }
