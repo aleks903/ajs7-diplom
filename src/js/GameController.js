@@ -205,9 +205,8 @@ export default class GameController {
   newGame() {
     this.blockedBoard = false;
     const maxPoint = this.maxPoints();
-    const currentGameState = {
-      maxPoint,
-    };
+    const currentGameState = this.stateService.load();
+    currentGameState.maxPoint = maxPoint;
     this.stateService.save(GameState.from(currentGameState));
 
     userPositions = [];
